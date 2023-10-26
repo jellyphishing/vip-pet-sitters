@@ -43,6 +43,7 @@ namespace FullStackAuth_WebAPI.Controllers
 
             UserForDisplayDto createdUser = new UserForDisplayDto
             {
+                
                 Id = user.Id,               
                 FirstName = user.FirstName,
                 LastName = user.LastName, 
