@@ -43,10 +43,11 @@ namespace FullStackAuth_WebAPI.Controllers
 
             UserForDisplayDto createdUser = new UserForDisplayDto
             {
-                Id = user.Id,
-                UserName = user.UserName,
+                Id = user.Id,               
                 FirstName = user.FirstName,
-                LastName = user.LastName,
+                LastName = user.LastName, 
+                Accommodations = user.Accommodations,
+                VIPServices = user.VIPServices,
             };
             return StatusCode(201, createdUser);
         }

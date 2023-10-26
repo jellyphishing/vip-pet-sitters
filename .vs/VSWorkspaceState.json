@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\VIP Pet Sitters Web API",
-    "\\VIP Pet Sitters Web API\\Controllers",
-    "\\VIP Pet Sitters Web API\\Data",
-    "\\VIP Pet Sitters Web API\\Migrations",
-    "\\VIP Pet Sitters Web API\\Models"
+    "\\FullStackAuth_WebAPI"
   ],
+  "SelectedNode": "\\README.md",
   "PreviewInSolutionExplorer": false
 }
