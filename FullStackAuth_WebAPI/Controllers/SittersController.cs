@@ -22,6 +22,33 @@ namespace FullStackAuth_WebAPI.Controllers
             _context = context;
         }
 
+        [HttpPut]
+        public IActionResult Put(int id, [FromBody] User user)
+        {
+            var userToUpdate = _context.Users.Find(id);
+            if (userToUpdate == null)
+            {
+                return NotFound();
+            }
+            userToUpdate.FirstName = user.FirstName;
+            userToUpdate.LastName = user.LastName;
+            userToUpdate.Email = user.Email;
+            userToUpdate.PhoneNumber = user.PhoneNumber;
+            userToUpdate.StreetAddress = user.StreetAddress;
+            userToUpdate.City = user.City;
+            userToUpdate.ZipCode = user.ZipCode;
+            userToUpdate.IsSitter = user.IsSitter; //should this be included?
+            userToUpdate.VIPServices = user.VIPServices;
+            userToUpdate.Accommodations = user.Accommodations;
+
+
+
+            _context.Users.Update(userToUpdate);
+            _context.SaveChanges();
+            return Ok(userToUpdate);
+        }
+
+
         [HttpGet]
         public IActionResult GetAllSitters() 
         {
