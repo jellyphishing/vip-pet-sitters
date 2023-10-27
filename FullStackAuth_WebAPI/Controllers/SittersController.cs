@@ -22,8 +22,8 @@ namespace FullStackAuth_WebAPI.Controllers
             _context = context;
         }
 
-        [HttpPut]
-        public IActionResult Put(int id, [FromBody] User user)
+        [HttpPut, Authorize]
+        public IActionResult Put(int id, [FromBody] User user) //allows Sitters to update their info
         {
             var userToUpdate = _context.Users.Find(id);
             if (userToUpdate == null)
@@ -32,6 +32,7 @@ namespace FullStackAuth_WebAPI.Controllers
             }
             userToUpdate.FirstName = user.FirstName;
             userToUpdate.LastName = user.LastName;
+            userToUpdate.UserName = user.UserName;
             userToUpdate.Email = user.Email;
             userToUpdate.PhoneNumber = user.PhoneNumber;
             userToUpdate.StreetAddress = user.StreetAddress;
@@ -40,6 +41,7 @@ namespace FullStackAuth_WebAPI.Controllers
             userToUpdate.IsSitter = user.IsSitter; //should this be included?
             userToUpdate.VIPServices = user.VIPServices;
             userToUpdate.Accommodations = user.Accommodations;
+            userToUpdate.AllAboutMe = user.AllAboutMe;
 
 
 
@@ -49,7 +51,7 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
 
-        [HttpGet] //Gets all sitters by filtering through 2 diff users and counts the favorites of the sitter
+        [HttpGet, Authorize] //Gets all sitters by filtering through 2 diff users and counts the favorites of the sitter
         public IActionResult GetAllSitters() 
         {
             var users = _context.Users.Where(u => u.IsSitter.Equals(true)).Select(u => new TableSittersForDisplayDto

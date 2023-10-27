@@ -21,6 +21,7 @@ namespace FullStackAuth_WebAPI.DataTransferObjects
         public bool IsSitter { get; set; }
         public string VIPServices { get; set; } 
         public string Accommodations { get; set; }
+        public string AllAboutMe { get; set; }
 
 
 
