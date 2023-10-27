@@ -20,6 +20,23 @@ namespace FullStackAuth_WebAPI.Controllers
         {
             _context = context;
         }
+        [HttpGet, Authorize]
+        public IActionResult GetClientsFavorites()
+        {
+            try
+            {
+                string clientId = User.FindFirstValue("id");
+                var favorites = _context.Favorites.Where(f => f.ClientId.Equals(clientId));
+                return StatusCode(200, favorites);
+            }
+            catch (Exception ex) 
+            {
+            return StatusCode(500, ex);
+            }
+
+        }
+        
+
         [HttpPost, Authorize]
 
         public IActionResult Post([FromBody] Favorite data)

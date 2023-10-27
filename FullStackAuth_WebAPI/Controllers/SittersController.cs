@@ -12,7 +12,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace FullStackAuth_WebAPI.Controllers
 {
-    [Route("api/[controller")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SittersController : ControllerBase
     {
@@ -49,7 +49,7 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet] //Gets all sitters by filtering through 2 diff users and counts the favorites of the sitter
         public IActionResult GetAllSitters() 
         {
             var users = _context.Users.Where(u => u.IsSitter.Equals(true)).Select(u => new TableSittersForDisplayDto
@@ -65,7 +65,7 @@ namespace FullStackAuth_WebAPI.Controllers
             return StatusCode(200, users );
         }
 
-        [HttpGet("{sitterId}")]
+        [HttpGet("{sitterId}")] //gets a sitters details page after clicking on a specific sitter and then posts their info and reviews
         public IActionResult GetSitter(string sitterId)
         {
             var sitterReviews = _context.Reviews.Where(r => r.SitterId.Equals(sitterId)).Include(r => r.Client).Select(r => new ReviewByClientDto

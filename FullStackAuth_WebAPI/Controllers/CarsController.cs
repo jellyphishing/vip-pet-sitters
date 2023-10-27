@@ -25,39 +25,39 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
         // GET: api/cars
-        [HttpGet]
-        public IActionResult GetAllCars()
-        {
-            try
-            {
-                //Includes entire Owner object--insecure!
-                //var cars = _context.Cars.Include(c => c.Owner).ToList();
+        //[HttpGet]
+        //public IActionResult GetAllCars()
+        //{
+        //    try
+        //    {
+        //        //Includes entire Owner object--insecure!
+        //        //var cars = _context.Cars.Include(c => c.Owner).ToList();
 
-                //Retrieve all cars from the database, using Dtos
-                var cars = _context.Cars.Select(c => new CarWithUserDto
-                {
-                    Id = c.Id,
-                    Make = c.Make,
-                    Model = c.Model,
-                    Year = c.Year,
-                    Owner = new UserForDisplayDto
-                    {
-                        Id = c.Owner.Id,
-                        FirstName = c.Owner.FirstName,
-                        LastName = c.Owner.LastName,
-                        UserName = c.Owner.UserName,
-                    }
-                }).ToList();
+        //        //Retrieve all cars from the database, using Dtos
+        //        var cars = _context.Cars.Select(c => new CarWithUserDto
+        //        {
+        //            Id = c.Id,
+        //            Make = c.Make,
+        //            Model = c.Model,
+        //            Year = c.Year,
+        //            Owner = new UserForDisplayDto
+        //            {
+        //                Id = c.Owner.Id,
+        //                FirstName = c.Owner.FirstName,
+        //                LastName = c.Owner.LastName,
+        //                UserName = c.Owner.UserName,
+        //            }
+        //        }).ToList();
 
-                // Return the list of cars as a 200 OK response
-                return StatusCode(200, cars);
-            }
-            catch (Exception ex)
-            {
-                // If an error occurs, return a 500 internal server error with the error message
-                return StatusCode(500, ex.Message);
-            }
-        }
+        //        // Return the list of cars as a 200 OK response
+        //        return StatusCode(200, cars);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // If an error occurs, return a 500 internal server error with the error message
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
 
         // GET: api/cars/myCars
         [HttpGet("myCars"), Authorize]

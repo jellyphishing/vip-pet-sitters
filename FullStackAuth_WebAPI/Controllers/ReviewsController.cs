@@ -11,7 +11,7 @@ using Org.BouncyCastle.Bcpg;
 
 namespace FullStackAuth_WebAPI.Controllers
 {
-    [Route("api/[controller")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ReviewsController : ControllerBase
     {
