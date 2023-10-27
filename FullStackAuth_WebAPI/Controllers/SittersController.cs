@@ -8,7 +8,7 @@ using FullStackAuth_WebAPI.Migrations;
 using FullStackAuth_WebAPI.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-
+using System.Reflection.Metadata.Ecma335;
 
 namespace FullStackAuth_WebAPI.Controllers
 {
@@ -22,19 +22,35 @@ namespace FullStackAuth_WebAPI.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IActionResult GetAllSitters() 
+        {
+            var users = _context.Users.Where(u => u.IsSitter.Equals(true)).Select(u => new TableSittersForDisplayDto
+            {
+                Id = u.Id,
+                VIPServices = u.VIPServices,
+                Accommodations = u.Accommodations,
+                FavoriteCount = _context.Favorites.Where(f => f.SitterId.Equals(u.Id)).Count()
+            }
+
+            );
+
+            return StatusCode(200, users );
+        }
+
         [HttpGet("{sitterId}")]
         public IActionResult GetSitter(string sitterId)
         {
-            var sitterReviews = _context.Reviews.Where(r => r.SitterId.Equals(sitterId)).Include(r => r.Client).Select(r => new ReviewByClientDto)
+            var sitterReviews = _context.Reviews.Where(r => r.SitterId.Equals(sitterId)).Include(r => r.Client).Select(r => new ReviewByClientDto
              {
                 Id = r.Id,
-                SitterId = r.sitterId,
+                SitterId = r.SitterId,
                 Text = r.Text,
-                User = new UserForDisplayDto //Is this going to need Client instead of User?
+                User = new UserForDisplayDto 
                 {
-                    Id = r.User.Id, //Same here, do I need r.Client.Id
-                    FirstName = r.User.LastName,
-                    LastName = r.User.LastName,
+                    Id = r.Client.Id, 
+                    FirstName = r.Client.LastName,
+                    LastName = r.Client.LastName,
                 }
 
              }).ToList();
