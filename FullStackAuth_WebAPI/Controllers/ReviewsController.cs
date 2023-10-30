@@ -25,12 +25,7 @@ namespace FullStackAuth_WebAPI.Controllers
         {
             try
             {
-                string clientId = User.FindFirstValue("clientid");
-                if (string.IsNullOrEmpty(clientId))
-                {
-                    return Unauthorized();
-                }
-                data.ClientId = clientId;
+              
                 _context.Reviews.Add(data);
                 if (!ModelState.IsValid)
                 {

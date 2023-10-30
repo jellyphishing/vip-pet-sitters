@@ -23,7 +23,7 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
         [HttpPut, Authorize]
-        public IActionResult Put(int id, [FromBody] User user) //allows Sitters to update their info
+        public IActionResult Put(string id, [FromBody] User user) //allows Sitters to update their info
         {
             var userToUpdate = _context.Users.Find(id);
             if (userToUpdate == null)
