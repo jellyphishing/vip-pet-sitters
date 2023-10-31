@@ -8,7 +8,7 @@ namespace FullStackAuth_WebAPI.Models
     public class Favorite
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [ForeignKey("Client")]
         public string ClientId { get; set; }

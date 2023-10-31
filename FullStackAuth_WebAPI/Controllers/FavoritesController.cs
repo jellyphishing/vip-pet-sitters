@@ -7,6 +7,8 @@ using System.Security.Claims;
 using FullStackAuth_WebAPI.Migrations;
 using FullStackAuth_WebAPI.Data;
 using Microsoft.AspNetCore.Authorization;
+using Org.BouncyCastle.Cms;
+using Microsoft.EntityFrameworkCore;
 
 namespace FullStackAuth_WebAPI.Controllers
 {
@@ -21,21 +23,17 @@ namespace FullStackAuth_WebAPI.Controllers
             _context = context;
         }
         [HttpGet, Authorize]
-        public IActionResult GetClientsFavorites()
+        public IActionResult GetClientFavorites(string clientId)
         {
-            try
-            {
-                string clientId = User.FindFirstValue("id");
-                var favorites = _context.Favorites.Where(f => f.ClientId.Equals(clientId));
-                return StatusCode(200, favorites);
-            }
-            catch (Exception ex) 
-            {
-            return StatusCode(500, ex);
-            }
-
+            var clientFavorites = _context.Favorites.Where(f => f.ClientId.Equals(clientId)).Include(f => f.Sitter).Include(f => f.Client).ToList();
+            return StatusCode(200, clientFavorites);
         }
-        
+         
+    
+   
+
+    
+
 
         [HttpPost, Authorize]
 

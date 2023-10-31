@@ -22,10 +22,10 @@ namespace FullStackAuth_WebAPI.Controllers
             _context = context;
         }
 
-        [HttpPut, Authorize]
+        [HttpPut("{id}"), Authorize] 
         public IActionResult Put(string id, [FromBody] User user) //allows Sitters to update their info
         {
-            var userToUpdate = _context.Users.Find(id);
+            var userToUpdate = _context.Users.Find(id); 
             if (userToUpdate == null)
             {
                 return NotFound();
@@ -67,22 +67,13 @@ namespace FullStackAuth_WebAPI.Controllers
             return StatusCode(200, users );
         }
 
-        [HttpGet("{sitterId}")] //gets a sitters details page after clicking on a specific sitter and then posts their info and reviews
-        public IActionResult GetSitter(string sitterId)
+        [HttpGet("{sitterId}"), Authorize] //gets a sitters details page after clicking on a specific sitter and then posts their info and reviews
+        public IActionResult GetSitterDetails(string sitterId)
         {
-            var sitterReviews = _context.Reviews.Where(r => r.SitterId.Equals(sitterId)).Include(r => r.Client).Select(r => new ReviewByClientDto
-             {
-                Id = r.Id,
-                SitterId = r.SitterId,
-                Text = r.Text,
-                User = new UserForDisplayDto 
-                {
-                    Id = r.Client.Id, 
-                    FirstName = r.Client.LastName,
-                    LastName = r.Client.LastName,
-                }
+            var sitterReviews = _context.Reviews.Where(r => r.SitterId.Equals(sitterId)).Include(r => r.Client).Include(r => r.Sitter).ToList();
 
-             }).ToList();
+                          
+            
 
             return StatusCode(200, sitterReviews);
         }
