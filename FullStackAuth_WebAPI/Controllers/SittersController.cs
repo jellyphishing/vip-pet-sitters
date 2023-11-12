@@ -77,6 +77,15 @@ namespace FullStackAuth_WebAPI.Controllers
 
             return StatusCode(200, sitterReviews);
         }
+        [HttpGet("name/{sitterName}"), Authorize] //gets a sitters details page after clicking on a specific sitter and then posts their info and reviews
+        public IActionResult GetSitterByName(string sitterName)
+        { 
+
+
+
+
+            return StatusCode(200);
+        }
 
     }
 }
