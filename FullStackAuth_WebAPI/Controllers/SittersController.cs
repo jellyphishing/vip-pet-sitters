@@ -22,10 +22,10 @@ namespace FullStackAuth_WebAPI.Controllers
             _context = context;
         }
 
-        [HttpPut("{id}"), Authorize] 
+        [HttpPut("{id}"), Authorize]
         public IActionResult Put(string id, [FromBody] User user) //allows Sitters to update their info
         {
-            var userToUpdate = _context.Users.Find(id); 
+            var userToUpdate = _context.Users.Find(id);
             if (userToUpdate == null)
             {
                 return NotFound();
@@ -52,7 +52,7 @@ namespace FullStackAuth_WebAPI.Controllers
 
 
         [HttpGet, Authorize] //Gets all sitters by filtering through 2 diff users and counts the favorites of the sitter
-        public IActionResult GetAllSitters() 
+        public IActionResult GetAllSitters()
         {
             var users = _context.Users.Where(u => u.IsSitter.Equals(true)).Select(u => new TableSittersForDisplayDto
             {
@@ -64,7 +64,7 @@ namespace FullStackAuth_WebAPI.Controllers
 
             );
 
-            return StatusCode(200, users );
+            return StatusCode(200, users);
         }
 
         [HttpGet("{sitterId}"), Authorize] //gets a sitters details page after clicking on a specific sitter and then posts their info and reviews
@@ -72,19 +72,35 @@ namespace FullStackAuth_WebAPI.Controllers
         {
             var sitterReviews = _context.Reviews.Where(r => r.SitterId.Equals(sitterId)).Include(r => r.Client).Include(r => r.Sitter).ToList();
 
-                          
-            
+
+
 
             return StatusCode(200, sitterReviews);
         }
         [HttpGet("name/{sitterName}"), Authorize] //gets a sitters details page after clicking on a specific sitter and then posts their info and reviews
         public IActionResult GetSitterByName(string sitterName)
-        { 
+        {
 
 
+            var sitter = _context.Users.Where(u => u.FirstName.Equals(sitterName));
 
+            return StatusCode(200, sitter);
+        }
 
-            return StatusCode(200);
+        [HttpGet("sitters/{sitterAccommodations}"), Authorize] //gets sitters based on accommodations they offer
+        public IActionResult GetSitterByAccommodations(string sitterAccommodations)
+        {
+            var sitterByAccommodations = _context.Users.Where(u => u.Accommodations.Equals(sitterAccommodations));
+
+            return StatusCode(200, sitterByAccommodations);
+        }
+
+        [HttpGet("sitters/{sitterServices"), Authorize] //gets sitters based on VIP Services
+        public IActionResult GetSitterByServices(string sitterServices)
+        {
+            var sitterByVIPServices = _context.Users.Where(u => u.VIPServices.Equals(sitterServices));
+
+            return StatusCode(200, sitterByVIPServices);
         }
 
     }
