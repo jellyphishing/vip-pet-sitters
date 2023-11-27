@@ -2,6 +2,7 @@ using FullStackAuth_WebAPI.ActionFilters;
 using FullStackAuth_WebAPI.Contracts;
 using FullStackAuth_WebAPI.Extensions;
 using FullStackAuth_WebAPI.Managers;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -28,6 +29,8 @@ namespace FullStackAuth_WebAPI
             builder.Services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             builder.Services.AddControllers();
 
+            
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -52,6 +55,7 @@ namespace FullStackAuth_WebAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
 
 
             app.MapControllers();
@@ -60,3 +64,4 @@ namespace FullStackAuth_WebAPI
         }
     }
 }
+

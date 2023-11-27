@@ -15,5 +15,6 @@ namespace FullStackAuth_WebAPI.DataTransferObjects
         public bool IsFavorited { get; set; }
         public List<ReviewByClientDto> Reviews { get; set; }
         public string AllAboutMe { get; set; }
+        
     }
 }

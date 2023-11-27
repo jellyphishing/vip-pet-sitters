@@ -22,17 +22,25 @@ namespace FullStackAuth_WebAPI.Controllers
         {
             _context = context;
         }
-        [HttpGet, Authorize]
+        //[HttpGet("{clientId}"), Authorize]
+        //public IActionResult GetClientFavorites(string clientId)
+        //{
+        //    var clientFavorites = _context.Favorites.Where(f => f.ClientId.Equals(clientId)).Include(f => f.Sitter).Include(f => f.Client).ToList();
+        //    return StatusCode(200, clientFavorites);
+        //}
+
+        [HttpGet("{clientId}"), Authorize]
         public IActionResult GetClientFavorites(string clientId)
         {
+            
             var clientFavorites = _context.Favorites.Where(f => f.ClientId.Equals(clientId)).Include(f => f.Sitter).Include(f => f.Client).ToList();
             return StatusCode(200, clientFavorites);
         }
-         
-    
-   
 
-    
+
+
+
+
 
 
         [HttpPost, Authorize]

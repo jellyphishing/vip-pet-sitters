@@ -8,7 +8,7 @@ namespace FullStackAuth_WebAPI.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         //I think I removed username from here
-        //public string UserName { get; set; } //why this one too?
+      // public string UserName { get; set; } //why this one too?
         
         
         public bool IsSitter { get; set; }

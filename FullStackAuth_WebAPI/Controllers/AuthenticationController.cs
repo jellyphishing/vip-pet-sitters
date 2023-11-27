@@ -49,6 +49,7 @@ namespace FullStackAuth_WebAPI.Controllers
                 LastName = user.LastName, 
                 Accommodations = user.Accommodations,
                 VIPServices = user.VIPServices,
+                
             };
             return StatusCode(201, createdUser);
         }

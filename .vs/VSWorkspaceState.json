@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\FullStackAuth_WebAPI"
+    "\\FullStackAuth_WebAPI",
+    "\\FullStackAuth_WebAPI\\Controllers",
+    "\\FullStackAuth_WebAPI\\DataTransferObjects",
+    "\\FullStackAuth_WebAPI\\Models"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\VIP Pet Sitters Web API.sln",
   "PreviewInSolutionExplorer": false
 }

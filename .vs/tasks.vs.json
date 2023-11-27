@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-FullStackAuth_WebAPI_Starter-main",
+      "appliesTo": "/",
+      "type": "launch"
+    }
+  ]
+}

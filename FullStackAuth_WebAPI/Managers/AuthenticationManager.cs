@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -53,7 +54,8 @@ namespace FullStackAuth_WebAPI.Managers
             {
                 new Claim("userName", _user.UserName),
                 new Claim("email", _user.Email),
-                new Claim("id", _user.Id)
+                new Claim("id", _user.Id),
+                new Claim("isSitter", _user.IsSitter.ToString()),
             };
 
             var roles = await _userManager.GetRolesAsync(_user);
@@ -64,10 +66,18 @@ namespace FullStackAuth_WebAPI.Managers
 
             return claims;
         }
+       
+
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
+
+            if (!claims.Any(c => c.Type == "isSitter"))
+            {
+                claims.Add(new Claim("isSitter", _user.IsSitter.ToString()));
+            }
+
 
             var tokenOptions = new JwtSecurityToken
             (
@@ -82,3 +92,24 @@ namespace FullStackAuth_WebAPI.Managers
         }
     }
 }
+//private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
+//{
+//    var jwtSettings = _configuration.GetSection("JwtSettings");
+
+//    // Add "isSitter" claim if not already present
+//    if (!claims.Any(c => c.Type == "isSitter"))
+//    {
+//        claims.Add(new Claim("isSitter", _user.IsSitter.ToString()));
+//    }
+
+//    var tokenOptions = new JwtSecurityToken
+//    (
+//        issuer: jwtSettings.GetSection("validIssuer").Value,
+//        audience: jwtSettings.GetSection("validAudience").Value,
+//        claims: claims,
+//        expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings.GetSection("expires").Value)),
+//        signingCredentials: signingCredentials
+//    );
+
+//    return tokenOptions;
+//}
