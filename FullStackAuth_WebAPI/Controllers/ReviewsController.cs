@@ -34,16 +34,10 @@ namespace FullStackAuth_WebAPI.Controllers
         {
             try
             {
-                //Get the user ID of the authenticated client
-                string clientId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-                if (string.IsNullOrEmpty(clientId))
-                {
-                    return Unauthorized("Invalid client ID");
-                }
+                
 
                 //Check if the client exists
-                var client = _context.Users.FirstOrDefault(u => u.Id == clientId && !u.IsSitter);
+                var client = _context.Users.FirstOrDefault(u => u.Id == reviewByClientDto.ClientId && !u.IsSitter);
 
                 if (client == null)
                 {
@@ -58,11 +52,12 @@ namespace FullStackAuth_WebAPI.Controllers
                     return NotFound("Sitter not found");
                 }
 
-               // Create a new review
-                var review = new Review
+                // Create a new review
+                var review = new Review()
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Text = reviewByClientDto.Text,
-                    ClientId = clientId,
+                    ClientId = reviewByClientDto.ClientId,
                     SitterId = reviewByClientDto.SitterId
                 };
 

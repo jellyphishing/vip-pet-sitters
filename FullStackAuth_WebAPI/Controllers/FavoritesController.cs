@@ -43,6 +43,8 @@ namespace FullStackAuth_WebAPI.Controllers
 
 
 
+
+
         [HttpPost, Authorize]
 
         public IActionResult Post([FromBody] Favorite data)
@@ -63,5 +65,20 @@ namespace FullStackAuth_WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("count/{sitterId}"), Authorize]
+        public IActionResult GetSitterFavoritesCount(string sitterId)
+        {
+            try
+            {
+                int favoritesCount = _context.Favorites.Count(f => f.SitterId.Equals(sitterId));
+                return StatusCode(200, new { SitterId = sitterId, FavoritesCount = favoritesCount });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
 }

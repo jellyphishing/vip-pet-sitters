@@ -39,7 +39,7 @@ namespace FullStackAuth_WebAPI.Controllers
             userToUpdate.StreetAddress = user.StreetAddress;
             userToUpdate.City = user.City;
             userToUpdate.ZipCode = user.ZipCode;
-            userToUpdate.IsSitter = user.IsSitter; //should this be included?
+           // userToUpdate.IsSitter = user.IsSitter; //should this be included?
             userToUpdate.VIPServices = user.VIPServices;
             userToUpdate.Accommodations = user.Accommodations;
             userToUpdate.AllAboutMe = user.AllAboutMe;
